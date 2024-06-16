@@ -1,0 +1,4 @@
+
+ekotlin:S6615" Remove this useless initializer.(É¾¢Ş8„ ƒ›‚2J$b92eb6e0-11f5-465f-9ead-a2689c14e101
+kotlin:S6306"TUsing "GlobalScope" here leads to the breaking of structured concurrency principles.(Ş®¨üÿÿÿÿ8‡ ƒ›‚2J$6f01d4f1-bad7-4635-b7b6-6c26b5eee4ee
+˜kotlin:S6306"TUsing "GlobalScope" here leads to the breaking of structured concurrency principles.(â»â*8úõÙ›‚2J$b6e3a613-3f98-4966-8881-9a4109f8b727
