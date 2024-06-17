@@ -11,33 +11,36 @@ fun main() = runBlocking<Unit> {
     val secretKey = generateAESKey()
 
 
-
     val jsonString = File("text.json").readText()
     val json = Json.decodeFromString<Map<String, List<String>>>(jsonString)
 
     val paragraphsData = json["paragraphs"] ?: error("Missing 'paragraphs' in JSON")
 
     var encryptedText: String? = null
+    var hash: String? = null
     var decryptedText: String? = null
 
+
     val encryptionJob = GlobalScope.launch {
-        encryptedText = encryptWithAsync(paragraphsData.joinToString("\n"), secretKey)
-        println("\n\n")
-        println("Encrypted text: $encryptedText")
+        val (encryptedTextResult, hashResult) = encryptWithAsync(paragraphsData.joinToString("\n"), secretKey)
+        encryptedText = encryptedTextResult
+        hash = hashResult
+        println("\nEncrypted text: $encryptedText")
     }
 
 
+    delay(2000)
+
 
     val decryptionJob = GlobalScope.launch {
-        delay(2000)
-        println("\n\n")
-        decryptedText = decryptWithAsync(encryptedText!!, secretKey)
-        println("Decrypted text: $decryptedText")
+        decryptedText = decryptWithAsync(encryptedText!!, hash!!, secretKey)
+        println("\nDecrypted text: $decryptedText")
     }
 
     encryptionJob.join()
     decryptionJob.join()
 }
+
 
 fun generateAESKey(): SecretKey {
 
